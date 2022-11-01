@@ -1,9 +1,9 @@
 @font-face {
-  font-family: 'maktro-ms';
-  src: url('fonts/maktro-ms.eot?40hb42');
-  src: url('fonts/maktro-ms.eot?40hb42#iefix') format('embedded-opentype'),
-    url('fonts/maktro-ms.ttf?40hb42') format('truetype'),
-    url('fonts/maktro-ms.woff?40hb42') format('woff');
+  font-family: 'Prxdevs';
+  src: url('fonts/Prxdevs.eot?40hb42');
+  src: url('fonts/Prxdevs.eot?40hb42#iefix') format('embedded-opentype'),
+    url('fonts/Prxdevs.ttf?40hb42') format('truetype'),
+    url('fonts/Prxdevs.woff?40hb42') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -12,7 +12,7 @@
 [class^='ic-'],
 [class*=' ic-'] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'maktro-ms' !important;
+  font-family: 'Prxdevs' !important;
   speak: none;
   font-style: normal;
   font-weight: normal;

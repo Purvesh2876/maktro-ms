@@ -33,7 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(methodOverride('_method'));
 app.use(cookieParser());
-//app.use(session({ secret: 'maktro-ms', saveUninitialized: true, resave: true }));
+//app.use(session({ secret: 'Prxdevs', saveUninitialized: true, resave: true }));
 app.use(
   session({
     secret: process.env.SECRET_KEY,

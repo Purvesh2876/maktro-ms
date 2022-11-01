@@ -70,9 +70,40 @@ ServicingController.read = async (req, res) => {
     foreignField: '_id',
     as: 'product',
   };
-  let matchObj = {
-    phone: { $regex: req.query.searchQuery, $options: 'i' },
-  };
+  // let matchObj = {
+  //   phone: { $regex: req.query.searchQuery, $options: 'i' },
+  // };
+
+  const matchObj = req.query.searchQuery
+  ? {
+      $or: [
+        {
+          name: {
+            $regex: req.query.searchQuery,
+            $options: 'i',
+          },
+        },
+        {
+          address: {
+            $regex: req.query.searchQuery,
+            $options: 'i',
+          },
+        },
+        {
+          phone: {
+            $regex: req.query.searchQuery,
+            $options: 'i',
+          },
+        },
+        {
+          status: {
+            $regex: req.query.searchQuery,
+            $options: 'i',
+          },
+        },
+      ],
+    }
+  : {}
 
   if (req.query.searchQuery) {
     allServicing = Servicing.aggregate()
@@ -153,5 +184,59 @@ ServicingController.getServicing = async (req, res) => {
     return '';
   }
 };
+
+function exportToExcel () {
+  var html = "";
+  //Title
+  html += "<table>";
+  html += "<tr><b>Excel Invoice </b></tr>"
+  html += "</table>";
+
+
+  // Empty row
+  html += "<table><tr></table></tr>";
+
+  html += "<table><tr>";
+  var strHeader = "" ; 
+  var DemoDate = new Date()
+  strHeader += "<th style='text-align:left'>Name</th>";
+  strHeader += "<th style='text-align:left'>Phone</th>";
+  strHeader += "<th style='text-align:left'>Product</th>";
+  strHeader += "<th style='text-align:left'>Quantity</th>";
+  strHeader += "<th style='text-align:left'>Charge</th>";
+
+  strHeader += "</tr>"
+  html += strHeader;
+  var body = "";
+  allservicing.forEach(exportToExcel, function (servicing, key) {
+      body += "<tr>";
+      body += "<td style='text-align:left'>" + servicing.name + "</td>";
+      body += "<td style='text-align:left'>" + servicing.phone + "</td>";
+      
+
+      body += "</tr>";
+  });
+  html += body;
+  html += "</table>";
+  tableToExcel(html, 'Sheet1', 'CustomizationData');
+}
+
+//tableToExcel() - Array to Excel file Convert
+var tableToExcel = function () {
+  var uri = 'data:application/vnd.ms-excel;base64,'
+      , template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body>{table}</body></html>'
+      , base64 = function (s) { return window.btoa(unescape(encodeURIComponent(s))) }
+      , format = function (s, c) { return s.replace(/{(\w+)}/g, function (m, p) { return c[p]; }) }
+
+  return function (table, name, fileName) {
+      if (!table.nodeType) table = table
+      var ctx = { worksheet: name || 'Worksheet', table: table }
+      //window.location.href = uri + base64(format(template, ctx))
+      var link = document.createElement("a");
+      link.download = fileName || 'download.xls';
+      link.href = uri + base64(format(template, ctx));
+      link.click();
+  }
+}
 
 module.exports = ServicingController;

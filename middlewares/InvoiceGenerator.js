@@ -268,11 +268,11 @@ const docDefinition = (data) => {
               width: 120,
             },
             {
-              text: 'Maktro Electronics Ltd.',
+              text: 'Prxdevs Ltd.',
               style: 'title',
             },
             {
-              text: `2/23 Razia Sultana Road,\n Mohammadpur, Dhaka.\nwww.maktro.com\n01714-178875, 01714-178876`,
+              text: `Ahmedabad, India\nwww.prxdevs.com\n8401918193`,
               style: 'generalText',
             },
           ],
@@ -356,7 +356,7 @@ const docDefinition = (data) => {
       {
         columns: [
           {
-            text: `Authorized By\n\n\n___________________________\nMaktro Electronics Ltd.`,
+            text: `Authorized By\n\n\n___________________________\nPrxdevs`,
             style: 'generalText',
           },
           {
